@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref, onMounted, watchEffect } from 'vue';
 import { Widget, useDashboardStore } from '@/stores/dashboard';
 import TextWidget from '@/components/TextWidget.vue';
 import WeatherWidget from '@/components/WeatherWidget.vue';
@@ -17,7 +16,7 @@ const addWidget = (type: Widget['type']) => {
   if (type === 'text') {
     defaultSettings = { text: '' } as TextWidgetSettings;
   } else if (type === 'weather') {
-    defaultSettings = { latitude: undefined, longitude: undefined } as WeatherWidgetSettings;
+    defaultSettings = { latitude: undefined, longitude: undefined } as unknown as WeatherWidgetSettings;
   } else if (type === 'timer') {
     defaultSettings = { initialTime: 60 }; 
   }

@@ -24,6 +24,7 @@ const startTimer = () => {
     } else {
       clearInterval(timerInterval!);
       isRunning.value = false;
+      alert('Таймер завершен!');
     }
   }, 1000);
   isRunning.value = true;

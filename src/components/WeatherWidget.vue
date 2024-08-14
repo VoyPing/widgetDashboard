@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import {computed, defineProps, onMounted, ref, watchEffect} from 'vue';
-import {useDashboardStore} from "@/stores/dashboard";
+import { computed, defineProps, onMounted, ref, watchEffect } from 'vue';
+import { useDashboardStore } from "@/stores/dashboard";
 import axios from "axios";
 import { useRouter } from 'vue-router';
 
 const props = defineProps<{ widget: any }>();
-const router = useRouter()
+const router = useRouter();
 const store = useDashboardStore();
 const latitude = computed(() => props.widget.settings.latitude);
 const longitude = computed(() => props.widget.settings.longitude);
@@ -59,9 +59,11 @@ const navigateToSettings = (id: string) => {
   <div class="widgetWeather">
     <div class="card">
       <h3>Виджет погоды</h3>
-      <p v-if="current.temperature">Температура: {{ current.temperature }} °C</p>
-      <p v-if="current.windSpeed">Скорость ветра: {{ current.windSpeed }} km/h</p>
-      <p v-if="current.precipitation">Вероятность осадков: {{ current.precipitation }} mm</p>
+      <p v-if="current.temperature !== undefined">Температура: {{ current.temperature }} °C</p>
+      <p v-if="current.windSpeed !== undefined">Скорость ветра: {{ current.windSpeed }} km/h</p>
+      <p v-if="current.precipitation !== undefined">
+        {{ current.precipitation === 0 ? 'Осадков не ожидается' : 'Вероятность осадков: ' + current.precipitation + ' mm' }}
+      </p>
     </div>
     <div class="action">
       <button @click="removeWidget(widget.id)">Удалить</button>
@@ -125,16 +127,5 @@ button {
 
 button:hover {
   background-color: #ff6666;
-}
-
-router-link {
-  color: #4caf50;
-  text-decoration: none;
-  font-weight: bold;
-  transition: color 0.3s ease;
-}
-
-router-link:hover {
-  color: #66bb6a;
 }
 </style>
